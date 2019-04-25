@@ -50,10 +50,10 @@ class Obje extends \PhpGedcom\Parser\Component
 
             switch ($recordType) {
                 case 'FORM':
-                    $obje->setForm(trim($record[2]));
+                    $obje->setForm(trim($record[2] ?? null));
                     break;
                 case 'TITL':
-                    $obje->setTitl(trim($record[2]));
+                    $obje->setTitl(trim($record[2] ?? null));
                     break;
                 case 'OBJE':
                     $obje->setForm($parser->normalizeIdentifier($record[2]));
