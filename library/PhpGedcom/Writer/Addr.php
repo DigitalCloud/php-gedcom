@@ -1,4 +1,5 @@
 <?php
+
 /**
  * php-gedcom
  *
@@ -7,43 +8,42 @@
  *
  * @author          Kristopher Wilson <kristopherwilson@gmail.com>
  * @copyright       Copyright (c) 2010-2013, Kristopher Wilson
- * @package         php-gedcom 
+ * @package         php-gedcom
  * @license         GPL-3.0
  * @link            http://github.com/mrkrstphr/php-gedcom
  */
-
 namespace PhpGedcom\Writer;
 
 /**
- *
  */
-class Addr
-{
-    /**
-     * @param \PhpGedcom\Record\Addr $addr
-     * @param string $format
-     * @param int $level
-     * @return string
-     */
-    public static function convert(\PhpGedcom\Record\Addr &$addr, $format = self::GEDCOM55, $level = 1)
-    {
-        $addrs = explode("\n", $addr->addr);
-        
-        $output = "{$level} ADDR " . $addrs[0] . "\n";
-        
-        array_shift($addrs);
-        
-        foreach ($addrs as $cont) {
-            $output .= ($level+1) . " CONT " . $cont . "\n";
-        }
+class Addr extends AbstractWrite {
 
-        $output .= ($level+1) . " ADR1 " . $addr->adr1 . "\n" .
-            ($level+1) . " ADR2 " . $addr->adr2 . "\n" .
-            ($level+1) . " CITY " . $addr->city . "\n" .
-            ($level+1) . " STAE " . $addr->stae . "\n" .
-            ($level+1) . " POST " . $addr->post . "\n" .
-            ($level+1) . " CTRY " . $addr->ctry . "\n";
-        
-        return $output;
-    }
+	/**
+	 *
+	 * @param \PhpGedcom\Record\Addr $addr
+	 * @param string $format
+	 * @param int $level
+	 * @return string
+	 */
+	public static function convert(\PhpGedcom\Record\Addr &$addr, $format, $level) {
+		$addrs = explode( "\n", $addr->getAddr() );
+
+		parent::addGedcomIfNotNull( $output, $level, 'ADDR', $addrs [0] );
+
+		array_shift( $addrs );
+		$level ++;
+
+		foreach ( $addrs as $cont ) {
+			parent::addGedcomIfNotNull( $output, $level, 'CONT', $cont );
+		}
+
+		parent::addGedcomIfNotNull( $output, $level, 'ADR1', $addr->getAdr1() );
+		parent::addGedcomIfNotNull( $output, $level, 'ADR2', $addr->getAdr2() );
+		parent::addGedcomIfNotNull( $output, $level, 'CITY', $addr->getCity() );
+		parent::addGedcomIfNotNull( $output, $level, 'STAE', $addr->getStae() );
+		parent::addGedcomIfNotNull( $output, $level, 'POST', $addr->getPost() );
+		parent::addGedcomIfNotNull( $output, $level, 'CTRY', $addr->getCtry() );
+
+		return $output;
+	}
 }

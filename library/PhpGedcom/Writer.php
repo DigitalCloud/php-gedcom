@@ -1,4 +1,5 @@
 <?php
+
 /**
  * php-gedcom
  *
@@ -7,7 +8,7 @@
  *
  * @author          Kristopher Wilson <kristopherwilson@gmail.com>
  * @copyright       Copyright (c) 2010-2013, Kristopher Wilson
- * @package         php-gedcom 
+ * @package         php-gedcom
  * @license         GPL-3.0
  * @link            http://github.com/mrkrstphr/php-gedcom
  */
@@ -16,20 +17,22 @@ namespace PhpGedcom;
 
 use \PhpGedcom\Gedcom;
 use \PhpGedcom\Writer\Head;
+use PhpGedcom\Writer\Indi;
+use PhpGedcom\Writer\Fam;
 
 /**
- *
  */
 class Writer
 {
     const GEDCOM55 = 'gedcom5.5';
-    
     protected $_output = null;
-    
+
     /**
      *
-     * @param \PhpGedcom\Gedcom $gedcom The GEDCOM object
-     * @param string $format The format to convert the GEDCOM object to
+     * @param \PhpGedcom\Gedcom $gedcom
+     *            The GEDCOM object
+     * @param string $format
+     *            The format to convert the GEDCOM object to
      * @return string The contents of the document in the converted format
      */
     public static function convert(Gedcom $gedcom, $format = self::GEDCOM55)
@@ -37,7 +40,15 @@ class Writer
         $head = $gedcom->getHead();
 
         $output = Head::convert($head, $format);
-        
+        foreach ($gedcom->getIndi() as $indi) {
+            $output .= Indi::convert($indi, $format);
+        }
+        foreach ($gedcom->getFam() as $fam) {
+            $output .= Fam::convert($fam, $format);
+        }
+
+        $output .= '0 TRLR';
+
         return $output;
     }
 }

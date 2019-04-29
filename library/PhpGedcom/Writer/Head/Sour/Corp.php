@@ -7,7 +7,7 @@
  *
  * @author          Kristopher Wilson <kristopherwilson@gmail.com>
  * @copyright       Copyright (c) 2010-2013, Kristopher Wilson
- * @package         php-gedcom 
+ * @package         php-gedcom
  * @license         GPL-3.0
  * @link            http://github.com/mrkrstphr/php-gedcom
  */
@@ -27,10 +27,12 @@ class Corp
      */
     public static function convert(\PhpGedcom\Record\Head\Sour\Corp &$corp, $format = self::GEDCOM55, $level = 2)
     {
-        $output = "{$level} CORP " . $corp->corp . "\n" .
-            \PhpGedcom\Writer\Addr::convert($corp->addr, $format, $level + 1);
-        
-        foreach ($corp->phon as $phon) {
+        $output = "{$level} CORP " . $corp->getCorp() . "\n";
+
+        if($corp->getAddr() != null)
+            $output .= \PhpGedcom\Writer\Addr::convert($corp->getAddr(), $format, $level + 1);
+
+        foreach ($corp->getPhon() as $phon) {
             $output .= \PhpGedcom\Writer\Phon::convert($phon, $format, $level + 1);
         }
 

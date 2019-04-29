@@ -1,4 +1,5 @@
 <?php
+
 /**
  * php-gedcom
  *
@@ -7,49 +8,44 @@
  *
  * @author          Kristopher Wilson <kristopherwilson@gmail.com>
  * @copyright       Copyright (c) 2010-2013, Kristopher Wilson
- * @package         php-gedcom 
+ * @package         php-gedcom
  * @license         GPL-3.0
  * @link            http://github.com/mrkrstphr/php-gedcom
  */
-
 namespace PhpGedcom\Writer;
 
+use PhpGedcom\Writer\Head\Gedc;
+use PhpGedcom\Writer\Head\Sour;
+use PhpGedcom\Writer\Head\Char;
+
 /**
- *
  */
-class Head
-{
-    /**
-     * @param \PhpGedcom\Record\Head $head
-     * @param string $format
-     * @return string
-     */
-    public static function convert(\PhpGedcom\Record\Head &$head, $format = self::GEDCOM55)
-    {
-        $output = "0 HEAD\n" .
+class Head extends AbstractWrite {
 
-            ($head->getSour() ? Head\Sour::convert($head->getSour(), $format) : '') .
-            //"1 DEST " . $head-> . "\n" .
-            "1 DATE " . date("d M Y") . "\n" .
-            "2 TIME " . date("H:i:s") . "\n";
+	/**
+	 *
+	 * @param \PhpGedcom\Record\Head $head
+	 * @param string $format
+	 * @return string
+	 */
+	public static function convert(\PhpGedcom\Record\Head &$head, $format) {
+		$level = 0;
+		$output = null;
 
-        /*
-            +1 SUBM @<XREF:SUBM>@  {1:1}
-            +1 SUBN @<XREF:SUBN>@  {0:1}
-            +1 FILE <FILE_NAME>  {0:1}
-            +1 COPR <COPYRIGHT_GEDCOM_FILE>  {0:1}
-            +1 GEDC        {1:1}
-              +2 VERS <VERSION_NUMBER>  {1:1}
-              +2 FORM <GEDCOM_FORM>  {1:1}
-            +1 CHAR <CHARACTER_SET>  {1:1}
-              +2 VERS <VERSION_NUMBER>  {0:1}
-            +1 LANG <LANGUAGE_OF_TEXT>  {0:1}
-            +1 PLAC        {0:1}
-              +2 FORM <PLACE_HIERARCHY>  {1:1}
-            +1 NOTE <GEDCOM_CONTENT_DESCRIPTION>  {0:1}
-              +2 [CONT|CONC] <GEDCOM_CONTENT_DESCRIPTION>  {0:M}
-        */
-        
-        return $output;
-    }
+		parent::addGedcomEmptyTag( $output, $level, parent::getCurrentTagName() );
+
+		$level ++;
+		$sour = $head->getSour();
+		$output .= Sour::convert( $sour, $format, $level );
+
+		parent::addGedcomIfNotNull( $output, $level, "DATE", date( "d M Y" ) );
+		parent::addGedcomIfNotNull( $output, $level, "TIME", date( "H:i:s" ) );
+
+		$gedc = $head->getGedc();
+		$output .= Gedc::convert( $gedc, $format, $level );
+		$char = $head->getChar();
+		$output .= Char::convert( $char, $format, $level );
+
+		return $output;
+	}
 }
