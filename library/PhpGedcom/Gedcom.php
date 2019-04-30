@@ -14,6 +14,8 @@
 
 namespace PhpGedcom;
 
+use PhpGedcom\Record\Indi;
+
 /**
  * Class Gedcom
  * @package PhpGedcom
@@ -123,6 +125,11 @@ class Gedcom
         $this->indi[$indi->getId()] = $indi;
     }
 
+    public function setIndis(array $indi)
+    {
+        $this->indi = $indi;
+    }
+
     /**
      * Adds a family to the collection of families.
      *
@@ -131,6 +138,11 @@ class Gedcom
     public function addFam(Record\Fam $fam)
     {
         $this->fam[$fam->getId()] = $fam;
+    }
+
+    public function setFams(array $fams)
+    {
+        $this->fam = $fams;
     }
 
     /**

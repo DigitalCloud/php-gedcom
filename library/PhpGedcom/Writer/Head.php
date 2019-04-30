@@ -44,7 +44,9 @@ class Head extends AbstractWrite
         parent::addGedcomIfNotNull($output, $level, "DATE", date("d M Y"));
         parent::addGedcomIfNotNull($output, $level, "TIME", date("H:i:s"));
         parent::addGedcomIfNotNull($output, $level, "DEST", $head->getDest());
+        parent::addGedcomIfNotNull($output, $level, "SUBM", '@' . $head->getSubm() . '@');
         parent::addGedcomIfNotNull($output, $level, "FILE", $head->getFile());
+        parent::addGedcomIfNotNull($output, $level, "LANG", $head->getLang());
 
         $gedc = $head->getGedc();
         $output .= Gedc::convert($gedc, $format, $level);

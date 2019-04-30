@@ -15,6 +15,7 @@
 namespace PhpGedcom\Record;
 
 use PhpGedcom\Record;
+use PhpGedcom\Record\Indi\Famc;
 use PhpGedcom\Record\NoteRef;
 use PhpGedcom\Record\ObjeRef;
 use PhpGedcom\Record\Refn;
@@ -41,6 +42,10 @@ class Indi extends Record implements Noteable, Objectable, Sourceable
      */
     protected $chan;
 
+    /**
+     * @var Phon
+     */
+    protected $phon;
     /**
      * @var Indi\Attr[]
      */
@@ -193,6 +198,14 @@ class Indi extends Record implements Noteable, Objectable, Sourceable
     }
 
     /**
+     * @return string
+     */
+    public function setPhon(Phon $phon)
+    {
+        return $this->phon = $phon;
+    }
+
+    /**
      * @param Indi\Name $name
      * @return Indi
      */
@@ -220,23 +233,23 @@ class Indi extends Record implements Noteable, Objectable, Sourceable
         return $this;
     }
 
-  /**
-   * @return Indi\Attr[]
-   */
-  public function getAllAttr()
-  {
-    return $this->attr;
-  }
+    /**
+     * @return Indi\Attr[]
+     */
+    public function getAllAttr()
+    {
+        return $this->attr;
+    }
 
-  /**
-   * @return Indi\Attr[]
-   */
-  public function getAttr(string $key)
-  {
-    return $this->attr[strtoupper($key)];
-  }
+    /**
+     * @return Indi\Attr[]
+     */
+    public function getAttr(string $key)
+    {
+        return $this->attr[strtoupper($key)];
+    }
 
-  /**
+    /**
      * @param Indi\Even $even
      * @return Indi
      */
@@ -246,23 +259,23 @@ class Indi extends Record implements Noteable, Objectable, Sourceable
         return $this;
     }
 
-  /**
-   * @return array
-   */
-  public function getAllEven()
-  {
-    return $this->even;
-  }
+    /**
+     * @return array
+     */
+    public function getAllEven()
+    {
+        return $this->even;
+    }
 
-  /**
-   * @return array
-   */
-  public function getEven(string $key)
-  {
-    return $this->even[strtoupper($key)];
-  }
+    /**
+     * @return array
+     */
+    public function getEven(string $key)
+    {
+        return $this->even[strtoupper($key)];
+    }
 
-  /**
+    /**
      * @param Indi\Asso $asso
      * @return Indi
      */
@@ -380,6 +393,12 @@ class Indi extends Record implements Noteable, Objectable, Sourceable
         return $this;
     }
 
+    public function setFamc(array $famc)
+    {
+        $this->famc = $famc;
+        return $this;
+    }
+
     /**
      * @return array
      */
@@ -395,6 +414,12 @@ class Indi extends Record implements Noteable, Objectable, Sourceable
     public function addFams(Indi\Fams $fams)
     {
         $this->fams[] = $fams;
+        return $this;
+    }
+
+    public function setFams(array $fams)
+    {
+        $this->fams = $fams;
         return $this;
     }
 
@@ -548,6 +573,14 @@ class Indi extends Record implements Noteable, Objectable, Sourceable
     public function getChan()
     {
         return $this->chan;
+    }
+
+    /**
+     * @return Phon
+     */
+    public function getPhon()
+    {
+        return $this->phon;
     }
 
     /**

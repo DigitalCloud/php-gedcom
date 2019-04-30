@@ -15,10 +15,10 @@
 
 namespace PhpGedcom;
 
-use \PhpGedcom\Gedcom;
 use \PhpGedcom\Writer\Head;
 use PhpGedcom\Writer\Indi;
 use PhpGedcom\Writer\Fam;
+use PhpGedcom\Writer\Subm;
 
 /**
  */
@@ -40,6 +40,11 @@ class Writer
         $head = $gedcom->getHead();
 
         $output = Head::convert($head, $format);
+
+        foreach ($gedcom->getSubm() as $subm) {
+            $output .= Subm::convert($subm, $format);
+        }
+
         foreach ($gedcom->getIndi() as $indi) {
             $output .= Indi::convert($indi, $format);
         }

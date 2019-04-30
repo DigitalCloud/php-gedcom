@@ -7,7 +7,7 @@
  *
  * @author          Kristopher Wilson <kristopherwilson@gmail.com>
  * @copyright       Copyright (c) 2010-2013, Kristopher Wilson
- * @package         php-gedcom 
+ * @package         php-gedcom
  * @license         GPL-3.0
  * @link            http://github.com/mrkrstphr/php-gedcom
  */
@@ -25,10 +25,10 @@ class Phon
      * @param int $level
      * @return string
      */
-    public static function convert($phon, $format = self::GEDCOM55, $level = 1)
+    public static function convert(\PhpGedcom\Record\Phon &$phon, $format = self::GEDCOM55, $level = 1)
     {
-        $output = "{$level} PHON " . $phon . "\n";
-        
+        $output = "{$level} PHON " . $phon->getPhon() . "\n";
+
         return $output;
     }
 }

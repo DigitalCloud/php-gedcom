@@ -23,7 +23,7 @@ class Fam extends \PhpGedcom\Record implements Noteable, Sourceable, Objectable
     /**
      *
      */
-    protected $_id   = null;
+    protected $_id = null;
 
     /**
      *
@@ -73,7 +73,7 @@ class Fam extends \PhpGedcom\Record implements Noteable, Sourceable, Objectable
     /**
      *
      */
-    protected $_rin  = null;
+    protected $_rin = null;
 
     /**
      *
@@ -98,23 +98,23 @@ class Fam extends \PhpGedcom\Record implements Noteable, Sourceable, Objectable
         $this->_even[$even->getType()] = $even;
     }
 
-  /**
-   * @return array
-   */
-  public function getAllEven()
-  {
-    return $this->_even;
-  }
+    /**
+     * @return array
+     */
+    public function getAllEven()
+    {
+        return $this->_even;
+    }
 
-  /**
-   * @return array
-   */
-  public function getEven(string $key)
-  {
-    return $this->_even[strtoupper($key)];
-  }
+    /**
+     * @return array
+     */
+    public function getEven(string $key)
+    {
+        return $this->_even[strtoupper($key)];
+    }
 
-  /**
+    /**
      *
      */
     public function addSlgs(\PhpGedcom\Record\Fam\Slgs $slgs)
@@ -153,5 +153,10 @@ class Fam extends \PhpGedcom\Record implements Noteable, Sourceable, Objectable
     public function addObje(\PhpGedcom\Record\ObjeRef $obje)
     {
         $this->_obje[] = $obje;
+    }
+
+    public function addChil($chil)
+    {
+        $this->_chil[] = $chil;
     }
 }
