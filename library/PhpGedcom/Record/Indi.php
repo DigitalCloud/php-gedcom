@@ -7,7 +7,7 @@
  *
  * @author          Kristopher Wilson <kristopherwilson@gmail.com>
  * @copyright       Copyright (c) 2010-2013, Kristopher Wilson
- * @package         php-gedcom 
+ * @package         php-gedcom
  * @license         GPL-3.0
  * @link            http://github.com/mrkrstphr/php-gedcom
  */
@@ -30,122 +30,127 @@ class Indi extends Record implements Noteable, Objectable, Sourceable
      * @var string
      */
     protected $id;
-    
+
+    /**
+     * @var string
+     */
+    protected $uid;
+
     /**
      * @var string
      */
     protected $chan;
-    
+
     /**
-     * @var array
+     * @var Indi\Attr[]
      */
     protected $attr = array();
-    
+
     /**
-     * @var array
+     * @var Indi\Even[]
      */
     protected $even = array();
-    
+
     /**
-     * @var array
+     * @var Indi\Note[]
      */
     protected $note = array();
-    
+
     /**
-     * @var array
+     * @var Obje[]
      */
     protected $obje = array();
-    
+
     /**
-     * @var array
+     * @var Sour[]
      */
     protected $sour = array();
-    
+
     /**
-     * @var array
+     * @var Indi\Name[]
      */
     protected $name = array();
-    
+
     /**
-     * @var array
+     * @var string[]
      */
     protected $alia = array();
-    
+
     /**
-     *
+     * @var string
      */
     protected $sex;
-    
+
     /**
-     *
+     * @var string
      */
     protected $rin;
-    
+
     /**
-     *
+     * @var string
      */
     protected $resn;
-    
+
     /**
-     *
+     * @var string
      */
     protected $rfn;
-    
+
     /**
-     *
+     * @var string
      */
     protected $afn;
-    
+
     /**
-     * @var array
+     * @var Indi\Fams[]
      */
     protected $fams = array();
-    
+
     /**
-     * @var array
+     * @var Indi\Famc[]
      */
     protected $famc = array();
-    
+
     /**
-     * @var array
+     * @var Indi\Asso[]
      */
     protected $asso = array();
-    
+
     /**
-     * @var array
+     * @var string[]
      */
     protected $subm = array();
-    
+
     /**
-     * @var array
+     * @var string[]
      */
     protected $anci = array();
-    
+
     /**
-     * @var array
+     * @var string[]
      */
     protected $desi = array();
-    
+
     /**
-     * @var array
+     * @var Refn[]
      */
     protected $refn = array();
-    
+
     /**
      * @var Indi\Bapl
      */
     protected $bapl;
-    
+
     /**
      * @var Indi\Conl
      */
     protected $conl;
-    
+
     /**
      * @var Indi\Endl
      */
     protected $endl;
-    
+
     /**
      * @var Indi\Slgc
      */
@@ -170,6 +175,24 @@ class Indi extends Record implements Noteable, Objectable, Sourceable
     }
 
     /**
+     * @param string $uid
+     * @return Indi
+     */
+    public function setUid($uid)
+    {
+        $this->uid = $uid;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUid()
+    {
+        return $this->uid;
+    }
+
+    /**
      * @param Indi\Name $name
      * @return Indi
      */
@@ -180,7 +203,7 @@ class Indi extends Record implements Noteable, Objectable, Sourceable
     }
 
     /**
-     * @return array
+     * @return Indi\Name[]
      */
     public function getName()
     {
@@ -193,37 +216,53 @@ class Indi extends Record implements Noteable, Objectable, Sourceable
      */
     public function addAttr(Indi\Attr $attr)
     {
-        $this->attr[] = $attr;
+        $this->attr[$attr->getType()][] = $attr;
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function getAttr()
-    {
-        return $this->attr;
-    }
+  /**
+   * @return Indi\Attr[]
+   */
+  public function getAllAttr()
+  {
+    return $this->attr;
+  }
 
-    /**
+  /**
+   * @return Indi\Attr[]
+   */
+  public function getAttr(string $key)
+  {
+    return $this->attr[strtoupper($key)];
+  }
+
+  /**
      * @param Indi\Even $even
      * @return Indi
      */
     public function addEven(Indi\Even $even)
     {
-        $this->even[] = $even;
+        $this->even[$even->getType()] = $even;
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function getEven()
-    {
-        return $this->even;
-    }
+  /**
+   * @return array
+   */
+  public function getAllEven()
+  {
+    return $this->even;
+  }
 
-    /**
+  /**
+   * @return array
+   */
+  public function getEven(string $key)
+  {
+    return $this->even[strtoupper($key)];
+  }
+
+  /**
      * @param Indi\Asso $asso
      * @return Indi
      */
@@ -252,7 +291,7 @@ class Indi extends Record implements Noteable, Objectable, Sourceable
     }
 
     /**
-     * @return array
+     * @return Refn[]
      */
     public function getRefn()
     {
@@ -378,7 +417,7 @@ class Indi extends Record implements Noteable, Objectable, Sourceable
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     public function getAnci()
     {
@@ -396,7 +435,7 @@ class Indi extends Record implements Noteable, Objectable, Sourceable
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     public function getDesi()
     {
@@ -414,7 +453,7 @@ class Indi extends Record implements Noteable, Objectable, Sourceable
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     public function getSubm()
     {

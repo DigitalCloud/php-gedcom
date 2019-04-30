@@ -28,9 +28,10 @@ class Corp
     public static function convert(\PhpGedcom\Record\Head\Sour\Corp &$corp, $format = self::GEDCOM55, $level = 2)
     {
         $output = "{$level} CORP " . $corp->getCorp() . "\n";
+        $output .= "{$level} CORP " . $corp->getName() . "\n";
 
-        if($corp->getAddr() != null)
-            $output .= \PhpGedcom\Writer\Addr::convert($corp->getAddr(), $format, $level + 1);
+        if ($addr = $corp->getAddr())
+            $output .= \PhpGedcom\Writer\Addr::convert($addr, $format, $level + 1);
 
         foreach ($corp->getPhon() as $phon) {
             $output .= \PhpGedcom\Writer\Phon::convert($phon, $format, $level + 1);

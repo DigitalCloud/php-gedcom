@@ -7,7 +7,7 @@
  *
  * @author          Kristopher Wilson <kristopherwilson@gmail.com>
  * @copyright       Copyright (c) 2010-2013, Kristopher Wilson
- * @package         php-gedcom 
+ * @package         php-gedcom
  * @license         GPL-3.0
  * @link            http://github.com/mrkrstphr/php-gedcom
  */
@@ -23,22 +23,22 @@ class Sour extends \PhpGedcom\Record
      *
      */
     protected $_sour = null;
-    
+
     /**
      *
      */
     protected $_vers = null;
-    
+
     /**
      *
      */
     protected $_name = null;
-    
+
     /**
      *
      */
     protected $_corp = null;
-    
+
     /**
      *
      */
@@ -52,7 +52,7 @@ class Sour extends \PhpGedcom\Record
     {
         $this->_corp = $corp;
     }
-    
+
     /**
      *
      * @return Sour\Corp
@@ -61,16 +61,16 @@ class Sour extends \PhpGedcom\Record
     {
         return $this->_corp;
     }
-    
+
     /**
-     * 
+     *
      * @param \PhpGedcom\Record\Head\Sour\Data $data
      */
     public function setData(\PhpGedcom\Record\Head\Sour\Data $data)
     {
         $this->_data = $data;
     }
-    
+
     /**
      *
      * @return \PhpGedcom\Record\Head\Sour\Data

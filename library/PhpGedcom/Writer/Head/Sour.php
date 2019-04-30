@@ -38,7 +38,7 @@ class Sour extends AbstractWrite {
 		$corp = $sour->getCorp();
 
 		if ($corp != null)
-			$output .= Corp::convert( $sour->getCorp(), $format, $level );
+			$output .= Corp::convert( $corp, $format, $level );
 
 		return $output;
 	}
