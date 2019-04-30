@@ -12,6 +12,7 @@
  * @license         GPL-3.0
  * @link            http://github.com/mrkrstphr/php-gedcom
  */
+
 namespace PhpGedcom\Writer;
 
 use PhpGedcom\Writer\Head\Gedc;
@@ -20,32 +21,36 @@ use PhpGedcom\Writer\Head\Char;
 
 /**
  */
-class Head extends AbstractWrite {
+class Head extends AbstractWrite
+{
 
-	/**
-	 *
-	 * @param \PhpGedcom\Record\Head $head
-	 * @param string $format
-	 * @return string
-	 */
-	public static function convert(\PhpGedcom\Record\Head &$head, $format) {
-		$level = 0;
-		$output = null;
+    /**
+     *
+     * @param \PhpGedcom\Record\Head $head
+     * @param string $format
+     * @return string
+     */
+    public static function convert(\PhpGedcom\Record\Head &$head, $format)
+    {
+        $level = 0;
+        $output = null;
 
-		parent::addGedcomEmptyTag( $output, $level, parent::getCurrentTagName() );
+        parent::addGedcomEmptyTag($output, $level, parent::getCurrentTagName());
 
-		$level ++;
-		$sour = $head->getSour();
-		$output .= Sour::convert( $sour, $format, $level );
+        $level++;
+        $sour = $head->getSour();
+        $output .= Sour::convert($sour, $format, $level);
 
-		parent::addGedcomIfNotNull( $output, $level, "DATE", date( "d M Y" ) );
-		parent::addGedcomIfNotNull( $output, $level, "TIME", date( "H:i:s" ) );
+        parent::addGedcomIfNotNull($output, $level, "DATE", date("d M Y"));
+        parent::addGedcomIfNotNull($output, $level, "TIME", date("H:i:s"));
+        parent::addGedcomIfNotNull($output, $level, "DEST", $head->getDest());
+        parent::addGedcomIfNotNull($output, $level, "FILE", $head->getFile());
 
-		$gedc = $head->getGedc();
-		$output .= Gedc::convert( $gedc, $format, $level );
-		$char = $head->getChar();
-		$output .= Char::convert( $char, $format, $level );
+        $gedc = $head->getGedc();
+        $output .= Gedc::convert($gedc, $format, $level);
+        $char = $head->getChar();
+        $output .= Char::convert($char, $format, $level);
 
-		return $output;
-	}
+        return $output;
+    }
 }

@@ -34,6 +34,7 @@ class Sour extends AbstractWrite {
 		parent::addGedcomIfNotNull( $output, $level, "SOUR", $sour->getSour() );
 		$level ++;
 		parent::addGedcomIfNotNull( $output, $level, "VERS", $sour->getVers() );
+        parent::addGedcomIfNotNull( $output, $level, "NAME", $sour->getName() );
 
 		$corp = $sour->getCorp();
 
