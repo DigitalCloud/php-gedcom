@@ -46,6 +46,7 @@ class Head extends AbstractWrite
         parent::addGedcomIfNotNull($output, $level, "DEST", $head->getDest());
         parent::addGedcomIfNotNull($output, $level, "SUBM", '@' . $head->getSubm() . '@');
         parent::addGedcomIfNotNull($output, $level, "FILE", $head->getFile());
+        parent::addGedcomIfNotNull($output, $level, "NOTE", $head->getNote());
         parent::addGedcomIfNotNull($output, $level, "LANG", $head->getLang());
 
         $gedc = $head->getGedc();
